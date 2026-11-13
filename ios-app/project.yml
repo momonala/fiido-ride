@@ -1,0 +1,58 @@
+name: FiidoRide
+options:
+  bundleIdPrefix: org.mnalavadi
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+
+packages:
+  FiidoKit:
+    path: FiidoKit
+
+configFiles:
+  Debug: Config.xcconfig
+  Release: Config.xcconfig
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: 52K2BR328Z
+    TARGETED_DEVICE_FAMILY: "1"
+
+targets:
+  FiidoRide:
+    type: application
+    platform: iOS
+    sources:
+      - path: FiidoRide
+        type: syncedFolder
+    dependencies:
+      - package: FiidoKit
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: Fiido Ride
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        FiidoBikeSerial: $(BIKE_SERIAL)
+        FiidoPurchaseOdometerKm: $(PURCHASE_ODOMETER_KM)
+        FiidoOldDisplayKm: $(OLD_DISPLAY_KM)
+        FiidoSyncHost: $(SYNC_HOST)
+        FiidoSyncPort: $(SYNC_PORT)
+        FiidoSyncToken: $(SYNC_TOKEN)
+        NSLocalNetworkUsageDescription: Sends rides to your Mac on the home network.
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIBackgroundModes: [bluetooth-central, location]
+        NSBluetoothAlwaysUsageDescription: Connects to your Fiido to read ride data and switch assist levels.
+        NSLocationWhenInUseUsageDescription: Records your route during rides and keeps logging while the phone is locked.
+        NSLocationAlwaysAndWhenInUseUsageDescription: Starts route recording when you switch the bike on, even if the app is in the background.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.mnalavadi.FiidoRide
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
